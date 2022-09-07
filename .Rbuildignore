@@ -1,0 +1,6 @@
+^cytoBatchNorm\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^LICENSE\.md$
+^wip*.R$
+^dev$
