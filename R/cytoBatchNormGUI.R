@@ -10,9 +10,17 @@
 #' @importFrom shiny shinyApp runApp
 #' @export
 
-cytoBatchNormGUI <- function(roots = c(data = getwd()), opts = list(debug = FALSE), ...) {
+cytoBatchNormGUI <- function(
+    roots = c(data = getwd()),
+    opts = list(review = TRUE, debug = FALSE),
+    ...
+) {
+  # check
+  if (any(sapply(roots, dir.exists) == FALSE)) {
+    stop("roots contains one unknown directory.")
+  }
+  # prepare environment and start app
   source(system.file('shiny/globals.R', package = "cytoBatchNorm"))
-  # TODO: check the env of globals is shared
   shiny_env <- new.env()
   assign('roots', roots, shiny_env)
   assign('debug', FALSE, shiny_env)
