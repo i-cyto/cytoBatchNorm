@@ -8,9 +8,8 @@ Authors@R: c(
     person("Olivier", "Molendi-Coste", role = "aut",
            email = "olivier.molendi-coste@inserm.fr",
            comment = c(ORCID = "0000-0002-0498-9456")))
-Description: This packagae allows to normalize channel intensity across batch. 
-    CytoBatchNorm is inspired from the cytofBatchAdjust script and the cytoNorm
-    package.
+Description: cytoBatchNorm allows to normalize channel intensity across batch. 
+    It is inspired from the cytofBatchAdjust script and the cytoNorm package.
 Imports:
     checkmate,
     methods,
