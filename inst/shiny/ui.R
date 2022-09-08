@@ -374,7 +374,7 @@ ui <- dashboardPage(
               splitLayout(  # alt. div
                 actionButton(
                   "proc_apply_button",
-                  "Apply", width = "100%"
+                  "Process", width = "100%"
                 ),
                 actionButton(
                   "proc_explorer",
