@@ -13,6 +13,17 @@ sample that is labeled and measured in each batch.
 
 cytoBatchNorm is not available on [CRAN](https://CRAN.R-project.org).
 
+### Simplest way to install
+
+``` r
+# Install BiocConductor manager if not already done
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+# Install cytoBatchNorm
+BiocManager::install(c("i-cyto/cytoBatchNorm"))
+```
+
+### Alternative installation
+
 First, be sure to install
 [flowCore](https://www.bioconductor.org/packages/release/bioc/html/flowCore.html)
 from [Bioconductor](https://www.bioconductor.org).
