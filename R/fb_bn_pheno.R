@@ -56,7 +56,7 @@ fb_bn_init_pheno <- function(
   if (any(mdta$batch_id != "") && any(mdta$sample_is_ref == "Y")) {
     # look for the smallest batch id and set it as reference
     batch_ref_id <- which(
-      mdta$batch_id != "" && mdta$sample_is_ref == "Y")
+      mdta$batch_id != "" & mdta$sample_is_ref == "Y")
     if (length(batch_ref_id) > 0)
       mdta$batch_is_ref[min(batch_ref_id)] <- "Y"
   }
