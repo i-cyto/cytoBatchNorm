@@ -790,6 +790,9 @@ server <- function(input, output, session) {
     my_fb_ref <- mem$my_fb_ref
     req(my_fb_ref)
 
+    # store before preview
+    showNotification("Writing flowBunch ")
+    fb_write(my_fb)
     # plot raw, ie before
     showNotification("Preview RAW started")
     pdf(fb_file_name(my_fb_ref, "-refs_raw.pdf"), width = 15,
