@@ -119,7 +119,7 @@ which_is_marker <- function(
   guess_ok(
     desc,
     c("time", "length", "barcode", "BCKG", "Live", "Dead",
-      "DNA{1,2}", "Center", "Offset", "Width", "Residual"))
+      "DNA[12]", "Center", "Offset", "Width", "Residual"))
 }
 
 #' @title guess_match
