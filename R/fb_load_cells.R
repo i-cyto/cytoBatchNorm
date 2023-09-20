@@ -64,7 +64,10 @@ fb_load_cells <- function(
     if (!file.exists(file_path)) {
       file_path <- file.path(fb@input$dirn, fb@pheno$file_name[i])
       if (!file.exists(file_path)) {
-        stop("file not found: ", fb@pheno$file_name[i])
+        file_path <- file.path(fb@input$dirn, basename(fb@pheno$file_name[i]))
+        if (!file.exists(file_path)) {
+          stop("file not found: ", fb@pheno$file_name[i])
+        }
       }
     }
     ff <- do.call("read.FCS", c(file_path, fb@options$read_fcs))
