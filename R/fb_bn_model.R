@@ -122,14 +122,7 @@ fb_bn_model_batch <- function(
     } else if (method == "quantiles") {
 
       bnp_params <- as.numeric(bnp[["params"]])
-      if (length(bnp_params) == 0 || is.na(bnp_params)) {  # default quantiles
-        quantileValues <- c(0.01, .2, .4, .6, .8, .9, .99)
-      } else if (length(bnp_params) == 1 && bnp_params > 1) {
-        nQ <- min(bnp_params, 101)
-        quantileValues <- c(0, (1:(nQ-1))/(nQ-1))
-      } else {
-        quantileValues <- bnp_params
-      }
+      quantileValues <- fb_bn_params_to_quantiles(bnp_params)
       params <- tapply(all_exprs_chn, all_exprs_fid,
                        quantile, probs = quantileValues)
       # params <- tapply(all_exprs_chn, all_exprs_fid,

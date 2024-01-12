@@ -178,3 +178,28 @@ fb_bn_assert_panel <- function(
   }
   invisible(fb)
 }
+
+
+#' @title fb_bn_params_to_quantiles
+#'
+#' @description translate parameters to quantiles when method is quantiles.
+#'
+#' @param params parameters from the params column
+#'
+#' @export
+
+fb_bn_params_to_quantiles <- function(
+    params
+) {
+  bnp_params <- as.numeric(params)
+  if (length(bnp_params) == 0 || any(is.na(bnp_params))) {  # default quantiles
+    quantileValues <- c(0.01, .2, .4, .6, .8, .9, .99)
+  } else if (length(bnp_params) == 1 && bnp_params > 1) {
+    nQ <- min(bnp_params, 101)
+    quantileValues <- c(0, (1:(nQ-1))/(nQ-1))
+  } else {
+    assertNumeric(bnp_params, lower = 0, upper = 1, any.missing = FALSE)
+    quantileValues <- bnp_params
+  }
+  return(quantileValues)
+}

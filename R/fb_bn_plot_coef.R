@@ -54,7 +54,7 @@ fb_bn_plot_coef <- function(
       my_fb_ref@panel$batchnorm_method[idx],
       "none" = FALSE,
       "percentile_hi" = max(percentiles),
-      "quantiles" = percentiles,
+      "quantiles" = fb_bn_params_to_quantiles(percentiles),
       "percentile_lohi" = if (length(percentiles) == 1) c(0.4, percentiles) else range(percentiles),
       "percentile_lohi_pos" = if (length(percentiles) == 1) c(0.4, percentiles) else range(percentiles)
     )
