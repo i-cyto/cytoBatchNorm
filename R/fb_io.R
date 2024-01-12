@@ -61,13 +61,17 @@ fb_file_name <- function(
 
 fb_write <- function(
     fb,
-    write_exprs = FALSE
+    write_exprs = FALSE,
+    overwrite = TRUE
 ) {
   assertClass(fb, "flowBunch")
   assertLogical(write_exprs)
+  assertLogical(overwrite)
   proj_dir <- fb_file_path(fb)
   if (testNull(proj_dir))
     return(NULL)
+  if (dir.exists(proj_dir) && !overwrite)
+    return(invisible())
   if (!dir.exists(proj_dir))
     dir.create(proj_dir)
   fb_write_pheno(fb)
