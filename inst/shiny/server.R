@@ -792,7 +792,7 @@ server <- function(input, output, session) {
 
     # store before preview
     showNotification("Writing flowBunch ")
-    fb_write(my_fb)
+    fb_write(my_fb_ref)
     # plot raw, ie before
     showNotification("Preview RAW started")
     pdf(fb_file_name(my_fb_ref, "-refs_raw.pdf"), width = 15,
