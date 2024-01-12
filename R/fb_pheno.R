@@ -20,7 +20,8 @@ fb_read_pheno <- function(
   assertFileExists(file)
   if (grepl("xlsx$", file)) {
     pheno <- readxl::read_excel(file)
-    pheno$batch_id <- as.character(pheno$batch_id)
+    if (any(colnames(pheno)=="batch_id"))
+      pheno$batch_id <- as.character(pheno$batch_id)
     pheno <- as.data.frame(pheno)
   } else
     stop("Unrecognized file format for pheno.")
@@ -29,6 +30,30 @@ fb_read_pheno <- function(
   }
   # TODO: check same number of lines
   # TODO: check lines are matching
+  # check sample_id is included in file_name
+  test = sapply(seq(nrow(pheno)), function(i) {
+    res = grep(pheno$sample_id[i], basename(pheno$file_name[i]))
+    length(res) == 1
+  })
+  if (!all(test == TRUE)) {
+    stop("sample_id is not of file_name in the pheno.xlsx: ",
+         paste(pheno$sample_id[test], collapse = ", "))
+  }
+  # skip test comparing in-memory to disk
+  if (!is.null(fb@pheno)) {
+    # check files are the same
+    # test_filepath = c(
+    #   setdiff(pheno$file_name, fb@pheno$file_name),
+    #   setdiff(fb@pheno$file_name, pheno$file_name))
+    test_filename = c(
+      setdiff(basename(pheno$file_name), basename(fb@pheno$file_name)),
+      setdiff(basename(fb@pheno$file_name), basename(pheno$file_name)))
+    if (length(test_filename) > 0) {
+      stop("file names of pheno.xlsx do not match the fb object: ",
+           paste(test_filename, collapse = ", "))
+    }
+  }
+  # ready
   fb@pheno <- pheno
   fb
 }
