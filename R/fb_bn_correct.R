@@ -107,7 +107,7 @@ fb_bn_correct_fcs <- function(
     msg <- sprintf("Processing %d: %s of %s", i, fb@pheno$sample_id[i], batch_id)
     if (verbose) message(msg)
     if (!is.null(hook)) hook(msg)
-    # read FCS
+    # read FCS as a flowBunch made of a single flowFrame
     my_fb_single <- fb_load_cells(fb, file_ids = file_no, sampling = "none")
     # process channels
     for (chn in channels) {
