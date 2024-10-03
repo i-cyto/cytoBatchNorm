@@ -50,15 +50,16 @@ fb_write_fcs <- function(
   for (i in match(file_nos, fb@pheno$file_no)) {
     if (verbose > 1)
       message(sprintf("writing FCS %3d/%d", i, length(file_nos)))
+    # 1. identify and read the initial FCS file
     file_path <- fb@pheno$file_name[i]
     if (!file.exists(file_path)) {
       file_path <- file.path(fb@input$dirn, fb@pheno$file_name[i])
       if (!file.exists(file_path)) {
-        stop("file not found: ", fb@pheno$file_name[i])
+        warning("File not found: ", fb@pheno$file_name[i])
+        next
       }
     }
     ff <- do.call("read.FCS", c(file_path, fb@options$read_fcs))
-    # ff <- do.call("read.FCS", c(fb@pheno$file_name[i], fb@options$read_fcs))
     # chn_idx <- get_channel_idx(fcs_colnames, ff)
     # if (any(is.na(chn_idx))) {
     #   warning(sprintf(
@@ -67,15 +68,21 @@ fb_write_fcs <- function(
     #     paste0(fcs_colnames[is.na(chn_idx)], collapse = ",")))
     #   next
     # }
-    # downsample
-    # replace exprs
-    # TODO: check column count and names are the same OR replace only some columns OR write only matched columns
-    # TODO: detransform
-    # TODO: decompensate
-    # if (!is.null(fb@options$do_compensate))
-    #     fb@options$compensated <- TRUE
+    # 2. replace initial exprs by given exprs
     # remove file_no and cell_no
     exprs(ff) <- fb@exprs[,1:(ncol(fb@exprs)-2)]
+
+    # TODO: check column count and names are the same OR replace only some
+    # columns OR write only matched columns
+
+    # 3. decompensate
+    if (isTRUE(fb@options$do_compensate)) {
+      spillover <- fb_get_compensation(ff)
+      if (!is.matrix(spillover)) {
+        ff <- flowCore::decompensate(ff, spillover)
+      }
+    }
+    # 4. write to disk
     # create output file name
     file_name <- basename(fb@pheno$file_name[i])
     file_name <- gsub("\\.fcs$", "", file_name, ignore.case = TRUE)

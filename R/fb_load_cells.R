@@ -133,7 +133,7 @@ fb_load_cells <- function(
 }
 
 
-#' Parse the flowFrame and try to extract a compensation matrix
+#' Parse the flowFrame compensation keywords and try to extract a matrix
 #'
 #' @param ff flowFrame
 #'
