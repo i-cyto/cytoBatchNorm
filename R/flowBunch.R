@@ -132,7 +132,6 @@ setClass(
         truncate_max_range = FALSE
       ),
       do_compensate = TRUE,
-      compensated = FALSE,
       do_transform = FALSE,
       transformed = FALSE,
       transforms = NULL,

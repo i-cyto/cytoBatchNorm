@@ -81,29 +81,10 @@ fb_load_cells <- function(
     }
     # 2. compensate
     if (isTRUE(fb@options$do_compensate)) {
-      spillover <- keyword(ff, "SPILL")[[1]]
-      if (is.null(spillover)) {
-        spillover <- keyword(ff, "$SPILLOVER")[[1]]
-      }
-      # if (is.character(spillover)) {
-      #   spilloverStr <- strsplit(spillover, ", ")[[1]]
-      #   n <- as.numeric(spilloverStr[1])
-      #   spillover <- t(
-      #     matrix(as.numeric(spilloverStr[(n+2):length(spilloverStr)]),
-      #            ncol = n))
-      #   colnames(spillover) <- spilloverStr[2:(n+1)]
-      # }
-      if (is.null(spillover)) {
-        warning("No compensation matrix found")
-        fb@options$compensated <- FALSE
-      } else if (!is.matrix(spillover)) {
-        warning("Don't know how to convert $SPILLOVER.")
-        fb@options$compensated <- FALSE
-      } else {
+      spillover <- ff_get_compensation(ff)
+      if (is.matrix(spillover)) {
         ff <- flowCore::compensate(ff, spillover)
-        fb@options$compensated <- TRUE
       }
-
     }
     # 3. downsample
     if (sampling == "ceil" && nrow(ff) > n_cells) {
@@ -149,4 +130,35 @@ fb_load_cells <- function(
   ))
   # done
   fb
+}
+
+
+#' Parse the flowFrame and try to extract a compensation matrix
+#'
+#' @param ff flowFrame
+#'
+#' @return matrix or whatever
+#' @export
+#'
+#' @examples
+#' # None
+ff_get_compensation <- function(ff) {
+  spillover <- keyword(ff, "SPILL")[[1]]
+  if (is.null(spillover)) {
+    spillover <- keyword(ff, "$SPILLOVER")[[1]]
+  }
+  # if (is.character(spillover)) {
+  #   spilloverStr <- strsplit(spillover, ", ")[[1]]
+  #   n <- as.numeric(spilloverStr[1])
+  #   spillover <- t(
+  #     matrix(as.numeric(spilloverStr[(n+2):length(spilloverStr)]),
+  #            ncol = n))
+  #   colnames(spillover) <- spilloverStr[2:(n+1)]
+  # }
+  if (is.null(spillover)) {
+    warning("No compensation matrix found")
+  } else if (!is.matrix(spillover)) {
+    warning("Don't know how to convert $SPILLOVER.")
+  }
+  return(spillover)
 }
