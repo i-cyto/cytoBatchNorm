@@ -77,8 +77,8 @@ fb_write_fcs <- function(
 
     # 3. decompensate
     if (isTRUE(fb@options$do_compensate)) {
-      spillover <- fb_get_compensation(ff)
-      if (!is.matrix(spillover)) {
+      spillover <- ff_get_compensation(ff)
+      if (is.matrix(spillover)) {
         ff <- flowCore::decompensate(ff, spillover)
       }
     }
