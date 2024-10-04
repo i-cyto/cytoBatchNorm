@@ -11,8 +11,7 @@
 #' @param transformation FALSE,
 #' @param truncate_max_range FALSE,
 #' @param which.lines integer, the events to load for the quick scan.
-#' @param channel_alias strings, see read.flowSet
-#' @param ... parameters passed to read.flowSet
+#' @param ... parameters passed to read.FCS
 #'
 #' @importFrom writexl write_xlsx
 #' @importFrom flowCore read.FCS keyword pData parameters
@@ -29,7 +28,6 @@ fb_scan_files <- function(
     transformation = FALSE,
     truncate_max_range = FALSE,
     which.lines = 1:50,
-    channel_alias = NULL,
     ...
 ) {
   if (is.null(files)) {
@@ -39,7 +37,7 @@ fb_scan_files <- function(
   } else {
     if (!is.character(files))
       stop("'files' must be a character vector.")
-    if (dirname != ".")
+    if (!is.null(dirname) && dirname != ".")
       files <- file.path(dirname, files)
     if (!all(file.exists(files)))
       stop("Not all given files could be found in", dirname)
