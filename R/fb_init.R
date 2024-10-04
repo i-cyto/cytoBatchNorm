@@ -28,6 +28,7 @@ fb_initiate <- function(
   assertDirectoryExists(fcs_dir)
   if (!is.null(project_dir))
     assertDirectoryExists(project_dir)
+  cytometer <- match.arg(cytometer)
   # Empty init
   my_fb <- flowBunch()
   # Set storage params
