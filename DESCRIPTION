@@ -1,6 +1,6 @@
 Package: cytoBatchNorm
 Title: Normalize Channels Of Cytometry Data Between Batch
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: c(
     person("Samuel", "Granjeaud", role = c("aut", "cre"),
            email = "samuel.granjeaud@inserm.fr",
