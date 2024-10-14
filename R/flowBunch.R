@@ -109,6 +109,7 @@ setClass(
     exprs = "m_df_dt_null",
     pheno = "data.frame",
     panel = "data.frame",
+    level = "data.frame",
     histo = "list",
     options = "list",
     procs = "list",
@@ -121,6 +122,7 @@ setClass(
     exprs = NULL,
     pheno = NULL,
     panel = NULL,
+    level = NULL,
     histo = list(
       paste0(Sys.time(), " Initialized")
     ),
@@ -215,6 +217,14 @@ fb_info <- function(
       sprintf("FCS column names are\n%s",
               paste(names(fb@panel$fcs_colname), sep = "=",
                     fb@panel$fcs_colname, collapse = ", ")))
+  }
+  if (is.null(fb@level)) info <- c(info, "No level information.") else {
+    leveled_cols <- unique(fb@level$fcs_colname)
+    info <- c(
+      info,
+      sprintf("Total leveled channels/columns: %d", length(leveled_cols)),
+      sprintf("Leveled FCS column names are\n%s",
+              paste(leveled_cols, collapse = ", ")))
   }
   if (is.null(fb@exprs)) info <- c(info, "No expression level.") else {
     info <- c(info, paste0(
