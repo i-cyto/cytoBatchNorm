@@ -35,6 +35,8 @@ fb_get_exprs <- function(
         stop("Please define transformations.")
     }
   } else {
+    if (is.null(fb@exprs))
+      message("exprs is null.")
     stop("Transform: exprs must be a matrix.")
   }
   if (ret == "matrix")
