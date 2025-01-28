@@ -4,7 +4,7 @@
 #'   percentiles. Loop across all given channels.
 #'
 #' @param my_fb_ref flowBunch.
-#' @param my_fb_ref_adj
+#' @param my_fb_ref_adj adjusted flowBunch.
 #' @param channels strings, name of channels to display.
 #' @param calc_mode string, either "diff_tr" or "ratio_un". "diff_tr" computes
 #'   difference of transformed intensity. "ratio_un" computes ratio of

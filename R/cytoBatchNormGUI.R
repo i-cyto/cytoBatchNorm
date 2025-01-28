@@ -3,9 +3,11 @@
 #' @description Run the Graphical User Interface.
 #'
 #' @param roots string, paths to use for loading FCS files and storing the
-#'   resulting FCS files.
+#'   resulting FCS files. If it is a single string, then it is converted to the
+#'   attended format.
 #' @param opts list, named values to tune the app.
-#' @param ... parameters passed to fb_bn_set_params.
+#' @param ... parameters passed to runApp(). For example, to launch the GUI in
+#'   the web browser of the computer, use `launch.browser = TRUE`.
 #'
 #' @importFrom shiny shinyApp runApp
 #' @export
@@ -16,6 +18,9 @@ cytoBatchNormGUI <- function(
     ...
 ) {
   # check
+  if (length(roots) == 1 && inherits(roots, "character")) {
+    roots <- list(roots = roots)
+  }
   if (any(sapply(roots, dir.exists) == FALSE)) {
     stop("roots contains one unknown directory.")
   }
