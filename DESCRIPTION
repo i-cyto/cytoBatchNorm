@@ -1,6 +1,6 @@
 Package: cytoBatchNorm
 Title: Normalize Channels Of Cytometry Data Between Batch
-Version: 0.99.3
+Version: 0.99.4
 Authors@R: c(
     person("Samuel", "Granjeaud", role = c("aut", "cre"),
            email = "samuel.granjeaud@inserm.fr",
@@ -28,7 +28,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.2
 Suggests: 
     rmarkdown,
     knitr,
