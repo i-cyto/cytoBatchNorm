@@ -19,7 +19,7 @@ cytoBatchNormGUI <- function(
 ) {
   # check
   if (length(roots) == 1 && inherits(roots, "character")) {
-    roots <- list(roots = roots)
+    roots <- c(roots = roots)
   }
   if (any(sapply(roots, dir.exists) == FALSE)) {
     stop("roots contains one unknown directory.")
