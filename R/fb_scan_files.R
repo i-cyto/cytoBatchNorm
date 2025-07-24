@@ -72,7 +72,9 @@ fb_scan_files <- function(
   res <- lapply(res, function(x)
     paste0(c(x, rep(NA, nc-length(x))), collapse = "\t"))
   # convert strings as data.frame
-  res2 <- read.table(text = paste0(res, collapse = "\n"), sep = "\t")
+  res2 <- read.table(
+    text = paste0(res, collapse = "\n"), sep = "\t",
+    comment.char = "")
   klen <- length(keywords)
   idx <- seq((ncol(res2)-klen)/2)
   colnames(res2) <- c("file_fullname", gsub("\\$", "", keywords))
